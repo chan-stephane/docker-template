@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: template-fastapi-image:latest
-    container_name: template-fastapi-container
+    image: template-flask-image:latest
+    container_name: template-flask-container
     ports:
       - 8080:8080
     environment:
