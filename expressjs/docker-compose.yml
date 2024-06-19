@@ -1,0 +1,10 @@
+version: "3.4"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: template-expressjs-image:latest
+    container_name: template-expressjs-container
+    ports:
+      - 3000:3000
