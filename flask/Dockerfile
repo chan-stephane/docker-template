@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir Flask gunicorn
 
 ENV PORT=8080
 
-CMD gunicorn --bind 0.0.0.0:$PORT main:app
+CMD gunicorn --bind 0.0.0.0:$PORT app.main:app
 
 
