@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  wordpress:
+    image: wordpress:5.1.1-fpm-alpine
+    container_name: wordpress
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=$WORDPRESS_DB_HOST
+      - WORDPRESS_DB_USER=$WORDPRESS_DB_USER
+      - WORDPRESS_DB_PASSWORD=$WORDPRESS_DB_PASSWORD
+      - WORDPRESS_DB_NAME=$WORDPRESS_DB_NAME
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - app-network
+
+  webserver:
+    depends_on:
+      - wordpress
+    image: nginx:1.15.12-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - 8080:81
+    volumes:
+      - wordpress:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - app-network
+    links:
+      - wordpress
+
+volumes:
+  wordpress:
+
+networks:
+  app-network:
+    driver: bridge
